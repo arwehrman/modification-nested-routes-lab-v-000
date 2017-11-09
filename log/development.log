@@ -870,3 +870,7 @@ Processing by SongsController#index as HTML
   [1m[36mCACHE (0.1ms)[0m  [1mSELECT  "artists".* FROM "artists" WHERE "artists"."id" = ? LIMIT 1[0m  [["id", 4]]
   Rendered songs/index.html.erb within layouts/application (49.9ms)
 Completed 200 OK in 314ms (Views: 302.6ms | ActiveRecord: 2.1ms)
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 104.254.16.4 at 2017-11-09 16:15:39 +0000
+Cannot render console from 104.254.16.4! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
