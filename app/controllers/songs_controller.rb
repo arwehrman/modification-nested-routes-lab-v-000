@@ -25,12 +25,16 @@ class SongsController < ApplicationController
   end
 
   def new
-    if params[:artist_id] && !Artist.exists?(params[:artist_id])
-      redirect_to artists_path, alert: "Artist not found"
+    if params[:artist_id]
+      if Artist.exists?(id: params[:artist_id])
+        @song = Song.new(artist_id: params[:artist_id])
+      else
+        redirect_to artists_path
+      end
     else
       @song = Song.new
+    end
   end
-end
 
   def create
     @song = Song.new(song_params)
@@ -44,15 +48,18 @@ end
 
   def edit
     if params[:artist_id]
-      artist = Artist.find_by(id: params[:author_id])
-      if artist.nil?
-        redirect_to artists_path, alert: "Artist not found"
+      if Artist.exists?(id: params[:artist_id])
+        @artist = Artist.find_by(id: params[:artist_id])
+        if @artist.songs.include?(Song.find_by(id: params[:id]))
+          @song = Song.find_by(id: params[:id])
+        else
+          redirect_to artist_songs_path(@artist)
+        end
       else
-        @song = artist.songs.find_by(id: params[:id])
-        redirect_to artist_songs_path(artist), alert: "Song not found." if @song.nil?
+        redirect_to artists_path
       end
     else
-      @song = Song.find(params[:id])
+      @song = Song.find_by(id: params[:id])
     end
   end
 
